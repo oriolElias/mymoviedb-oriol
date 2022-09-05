@@ -1,6 +1,7 @@
 package com.apirest.moviedb.controller;
 
 
+import com.apirest.moviedb.entity.CastAndCrew;
 import com.apirest.moviedb.entity.Genres;
 import com.apirest.moviedb.entity.Movie;
 import com.apirest.moviedb.service.MiddleManMovieDBService;
@@ -31,8 +32,12 @@ public class MiddleManMovieDBController {
         return middleManMovieDBService.findPopularMovies();
     }
     @GetMapping("api/movie/{movie_id}")
-    public List<Movie> getMoviesById(@PathVariable Integer movie_id) throws IOException {
+    public Movie getMoviesById(@PathVariable Integer movie_id) throws IOException {
         return middleManMovieDBService.findMovieById(movie_id);
+    }
+    @GetMapping("api/movie/{movie_id}/credits")
+    public List<CastAndCrew> getCastAndCrewMovieById(@PathVariable Integer movie_id) throws IOException {
+        return middleManMovieDBService.findCastAndCrewMovieById(movie_id);
     }
 
 

@@ -1,5 +1,6 @@
 package com.apirest.moviedb.service;
 
+import com.apirest.moviedb.entity.CastAndCrew;
 import com.apirest.moviedb.entity.Genres;
 import com.apirest.moviedb.entity.Movie;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -50,19 +51,24 @@ public class MiddleManMovieDBService {
 
     }
 
-    public List<Movie> findMovieById(Integer id) throws IOException {
+    public Movie findMovieById(Integer id) throws IOException {
         System.out.println(id.toString());
         StringBuilder jsonReq = getStringFromRequest("movie/"+id.toString()+"?api_key=");
 
-        System.out.println(jsonReq);
-
         mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY,true);
-        Movie[] response  = mapper.readValue(jsonReq.toString(),Movie[].class);
+        Movie response  = mapper.readValue(jsonReq.toString(),Movie.class);
 
-        return Arrays.asList(response);
+        return response;
     }
 
+    public List<CastAndCrew> findCastAndCrewMovieById(Integer movie_id) throws IOException {
+        StringBuilder jsonReq = getStringFromRequest("movie/"+movie_id.toString()+"/credits?api_key=");
 
+        CastAndCrew[] response  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("cast").toString(),CastAndCrew[].class);
+
+        return Arrays.asList(response);
+
+    }
 
 
 
