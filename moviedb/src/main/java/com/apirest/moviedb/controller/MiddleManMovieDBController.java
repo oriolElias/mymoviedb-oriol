@@ -2,6 +2,7 @@ package com.apirest.moviedb.controller;
 
 
 import com.apirest.moviedb.entity.Genres;
+import com.apirest.moviedb.entity.Movie;
 import com.apirest.moviedb.service.MiddleManMovieDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,10 @@ public class MiddleManMovieDBController {
     public List<Genres> getAllGenres() throws IOException {
 
         return middleManMovieDBService.findAllGenreMovieList();
+    }
+    @GetMapping("api/movie/popular")
+    public List<Movie> getPopularMovies() throws IOException {
+        return middleManMovieDBService.findPopularMovies();
     }
 
 }
