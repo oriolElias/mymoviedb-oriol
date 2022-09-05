@@ -1,7 +1,9 @@
 package com.apirest.moviedb.entity;
 
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.Arrays;
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Movie {
     boolean adult;
     String backdrop_path;

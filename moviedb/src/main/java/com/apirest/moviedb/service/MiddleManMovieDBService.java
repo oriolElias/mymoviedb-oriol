@@ -2,6 +2,7 @@ package com.apirest.moviedb.service;
 
 import com.apirest.moviedb.entity.Genres;
 import com.apirest.moviedb.entity.Movie;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,33 @@ public class MiddleManMovieDBService {
         return Arrays.asList(response);
 
     }
+
+    public List<Movie> findTopRatedMovies() throws IOException {
+        StringBuilder jsonReq = getStringFromRequest("movie/top_rated?api_key=");
+
+        Movie[] response  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("results").toString(),Movie[].class);
+
+        return Arrays.asList(response);
+
+    }
+
+    public List<Movie> findMovieById(Integer id) throws IOException {
+        System.out.println(id.toString());
+        StringBuilder jsonReq = getStringFromRequest("movie/"+id.toString()+"?api_key=");
+
+        System.out.println(jsonReq);
+
+        mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY,true);
+        Movie[] response  = mapper.readValue(jsonReq.toString(),Movie[].class);
+
+        return Arrays.asList(response);
+    }
+
+
+
+
+
+
     private StringBuilder getStringFromRequest(String req) throws IOException {
         mapper = new ObjectMapper();
         URL url = new URL(uri+req+apiKey);
