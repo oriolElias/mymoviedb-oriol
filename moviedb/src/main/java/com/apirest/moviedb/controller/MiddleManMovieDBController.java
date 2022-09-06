@@ -27,7 +27,7 @@ public class MiddleManMovieDBController {
     }
     @GetMapping("api/movie/top_rated")
     public List<Movie> getTopRatedMovies() throws IOException {
-        return middleManMovieDBService.findPopularMovies();
+        return middleManMovieDBService.findTopRatedMovies();
     }
     @GetMapping("api/movie/{movie_id}")
     public Movie getMoviesById(@PathVariable Integer movie_id) throws IOException {
