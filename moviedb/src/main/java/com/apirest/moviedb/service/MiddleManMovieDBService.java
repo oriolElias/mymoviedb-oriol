@@ -60,14 +60,16 @@ public class MiddleManMovieDBService {
     public BackgroundLogosPosters findAllImagesForMovieById(Integer movie_id) throws IOException {
         StringBuilder jsonReq = getStringFromRequest("movie/"+movie_id.toString()+"/images?api_key=");
 
-        System.out.println(jsonReq.toString());
+        System.out.println(mapper.readTree(jsonReq.toString()).get("id"));
 
         Image[] responseBackdrops  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("backdrops").toString(),Image[].class);
         Image[] responsePosters  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("posters").toString(),Image[].class);
+        int id = mapper.readTree(jsonReq.toString()).get("id").asInt();
 
         BackgroundLogosPosters response = new BackgroundLogosPosters();
         response.setBackground(Arrays.asList(responseBackdrops));
-        response.setBackground(Arrays.asList(responsePosters));
+        response.setPosters(Arrays.asList(responsePosters));
+        response.setId(id);
         return response;
     }
     public List<Keywords> findAllKeywordsForMovieById(Integer movie_id) throws IOException {

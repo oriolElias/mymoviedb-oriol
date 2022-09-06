@@ -7,16 +7,24 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BackgroundLogosPosters {
     private List<Image> background;
-    private List<Image> logos;
+    private int id;
     private List<Image> posters;
 
     @Override
     public String toString() {
         return "BackgroundLogosPosters{" +
                 "background=" + background +
-                ", logos=" + logos +
+                ", id=" + id +
                 ", posters=" + posters +
                 '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public List<Image> getBackground() {
@@ -27,13 +35,7 @@ public class BackgroundLogosPosters {
         this.background = background;
     }
 
-    public List<Image> getLogos() {
-        return logos;
-    }
 
-    public void setLogos(List<Image> logos) {
-        this.logos = logos;
-    }
 
     public List<Image> getPosters() {
         return posters;
@@ -46,9 +48,9 @@ public class BackgroundLogosPosters {
     public BackgroundLogosPosters() {
     }
 
-    public BackgroundLogosPosters(List<Image> background, List<Image> logos, List<Image> posters) {
+    public BackgroundLogosPosters(List<Image> background, int id, List<Image> posters) {
         this.background = background;
-        this.logos = logos;
+        this.id = id;
         this.posters = posters;
     }
 }
