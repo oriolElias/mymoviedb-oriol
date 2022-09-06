@@ -1,13 +1,14 @@
-create table users(
+--drop table if exists users;
+CREATE TABLE IF NOT EXISTS users(
   userid int not null auto_increment,
   username varchar_ignorecase(50) not null ,
   password varchar_ignorecase(500) not null,
   role varchar(50) not null,
-  enabled boolean not null,
+  enabled int not null,
   primary key (userid)
 );
 
-create table user_movie(
+CREATE TABLE IF NOT EXISTS user_movie(
   userid int not null,
   movieid int not null,
   favorite boolean,
