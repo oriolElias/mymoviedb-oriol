@@ -46,10 +46,16 @@ public class MiddleManMovieDBService {
         return response;
     }
 
-    public List<CastAndCrew> findCastAndCrewMovieById(Integer movie_id) throws IOException {
+    public CastAndCrew findCastAndCrewMovieById(Integer movie_id) throws IOException {
         StringBuilder jsonReq = getStringFromRequest("movie/"+movie_id.toString()+"/credits?api_key=");
-        CastAndCrew[] response  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("cast").toString(),CastAndCrew[].class);
-        return Arrays.asList(response);
+        Cast[] responseCast  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("cast").toString(),Cast[].class);
+        Crew[] responseCrew  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("cast").toString(),Crew[].class);
+        CastAndCrew response = new CastAndCrew();
+
+        response.setCasts(Arrays.asList(responseCast));
+        response.setCrews(Arrays.asList(responseCrew));
+
+        return response;
     }
     public List<Image> findAllImagesForMovieById(Integer movie_id) throws IOException {
         StringBuilder jsonReq = getStringFromRequest("movie/"+movie_id.toString()+"/images?api_key=");

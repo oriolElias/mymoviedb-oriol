@@ -34,7 +34,7 @@ public class MiddleManMovieDBController {
         return middleManMovieDBService.findMovieById(movie_id);
     }
     @GetMapping("api/movie/{movie_id}/credits")
-    public List<CastAndCrew> getCastAndCrewMovieById(@PathVariable Integer movie_id) throws IOException {
+    public CastAndCrew getCastAndCrewMovieById(@PathVariable Integer movie_id) throws IOException {
         return middleManMovieDBService.findCastAndCrewMovieById(movie_id);
     }
     @GetMapping("api/movie/{movie_id}/images")
