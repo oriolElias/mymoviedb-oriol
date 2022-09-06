@@ -2,6 +2,7 @@ package com.apirest.moviedb.service;
 
 import com.apirest.moviedb.entity.CastAndCrew;
 import com.apirest.moviedb.entity.Genres;
+import com.apirest.moviedb.entity.Image;
 import com.apirest.moviedb.entity.Movie;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -69,7 +70,15 @@ public class MiddleManMovieDBService {
         return Arrays.asList(response);
 
     }
+    public List<Image> findAllImagesForMovieById(Integer movie_id) throws IOException {
+        StringBuilder jsonReq = getStringFromRequest("movie/"+movie_id.toString()+"/images?api_key=");
 
+        System.out.println(mapper.readTree(jsonReq.toString()).get("backdrops").toString());
+
+        Image[] response  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("backdrops").toString(),Image[].class);
+
+        return Arrays.asList(response);
+    }
 
 
 

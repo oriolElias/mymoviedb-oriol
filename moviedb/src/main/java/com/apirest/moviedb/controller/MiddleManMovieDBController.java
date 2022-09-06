@@ -3,6 +3,7 @@ package com.apirest.moviedb.controller;
 
 import com.apirest.moviedb.entity.CastAndCrew;
 import com.apirest.moviedb.entity.Genres;
+import com.apirest.moviedb.entity.Image;
 import com.apirest.moviedb.entity.Movie;
 import com.apirest.moviedb.service.MiddleManMovieDBService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class MiddleManMovieDBController {
     public List<CastAndCrew> getCastAndCrewMovieById(@PathVariable Integer movie_id) throws IOException {
         return middleManMovieDBService.findCastAndCrewMovieById(movie_id);
     }
-
+    @GetMapping("api/movie/{movie_id}/images")
+    public List<Image> getImagesForMovieById(@PathVariable Integer movie_id) throws IOException {
+        return middleManMovieDBService.findAllImagesForMovieById(movie_id);
+    }
 
 }
