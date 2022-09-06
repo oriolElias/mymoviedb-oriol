@@ -1,9 +1,6 @@
 package com.apirest.moviedb.service;
 
-import com.apirest.moviedb.entity.CastAndCrew;
-import com.apirest.moviedb.entity.Genres;
-import com.apirest.moviedb.entity.Image;
-import com.apirest.moviedb.entity.Movie;
+import com.apirest.moviedb.entity.*;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
@@ -79,9 +76,28 @@ public class MiddleManMovieDBService {
 
         return Arrays.asList(response);
     }
+    public List<Keywords> findAllKeywordsForMovieById(Integer movie_id) throws IOException {
+        StringBuilder jsonReq = getStringFromRequest("movie/"+movie_id.toString()+"/keywords?api_key=");
 
+        Keywords[] response  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("keywords").toString(),Keywords[].class);
 
+        return Arrays.asList(response);
 
+    }
+    public List<Movie> findRecommendationsForMovieById(Integer movie_id) throws IOException {
+        StringBuilder jsonReq = getStringFromRequest("movie/"+movie_id.toString()+"/recommendations?api_key=");
+
+        Movie[] response  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("results").toString(),Movie[].class);
+
+        return Arrays.asList(response);
+    }
+    public List<Movie> findSimilarMovieById(Integer movie_id) throws IOException {
+        StringBuilder jsonReq = getStringFromRequest("movie/"+movie_id.toString()+"/similar?api_key=");
+
+        Movie[] response  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("results").toString(),Movie[].class);
+
+        return Arrays.asList(response);
+    }
     private StringBuilder getStringFromRequest(String req) throws IOException {
         mapper = new ObjectMapper();
         URL url = new URL(uri+req+apiKey);

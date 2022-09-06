@@ -1,10 +1,7 @@
 package com.apirest.moviedb.controller;
 
 
-import com.apirest.moviedb.entity.CastAndCrew;
-import com.apirest.moviedb.entity.Genres;
-import com.apirest.moviedb.entity.Image;
-import com.apirest.moviedb.entity.Movie;
+import com.apirest.moviedb.entity.*;
 import com.apirest.moviedb.service.MiddleManMovieDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,5 +41,16 @@ public class MiddleManMovieDBController {
     public List<Image> getImagesForMovieById(@PathVariable Integer movie_id) throws IOException {
         return middleManMovieDBService.findAllImagesForMovieById(movie_id);
     }
-
+    @GetMapping("api/movie/{movie_id}/keywords")
+    public List<Keywords> getKeywordsForMovieById(@PathVariable Integer movie_id) throws IOException {
+        return middleManMovieDBService.findAllKeywordsForMovieById(movie_id);
+    }
+    @GetMapping("api/movie/{movie_id}/recommendations")
+    public List<Movie> getRecommendationsForMovieById(@PathVariable Integer movie_id) throws IOException {
+        return middleManMovieDBService.findRecommendationsForMovieById(movie_id);
+    }
+    @GetMapping("api/movie/{movie_id}/similar")
+    public List<Movie> getSimilarMovieById(@PathVariable Integer movie_id) throws IOException {
+        return middleManMovieDBService.findSimilarMovieById(movie_id);
+    }
 }
