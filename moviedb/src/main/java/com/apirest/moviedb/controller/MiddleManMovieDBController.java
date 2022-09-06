@@ -38,7 +38,7 @@ public class MiddleManMovieDBController {
         return middleManMovieDBService.findCastAndCrewMovieById(movie_id);
     }
     @GetMapping("api/movie/{movie_id}/images")
-    public List<Image> getImagesForMovieById(@PathVariable Integer movie_id) throws IOException {
+    public BackgroundLogosPosters getImagesForMovieById(@PathVariable Integer movie_id) throws IOException {
         return middleManMovieDBService.findAllImagesForMovieById(movie_id);
     }
     @GetMapping("api/movie/{movie_id}/keywords")

@@ -49,7 +49,7 @@ public class MiddleManMovieDBService {
     public CastAndCrew findCastAndCrewMovieById(Integer movie_id) throws IOException {
         StringBuilder jsonReq = getStringFromRequest("movie/"+movie_id.toString()+"/credits?api_key=");
         Cast[] responseCast  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("cast").toString(),Cast[].class);
-        Crew[] responseCrew  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("cast").toString(),Crew[].class);
+        Crew[] responseCrew  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("crew").toString(),Crew[].class);
         CastAndCrew response = new CastAndCrew();
 
         response.setCasts(Arrays.asList(responseCast));
@@ -57,11 +57,18 @@ public class MiddleManMovieDBService {
 
         return response;
     }
-    public List<Image> findAllImagesForMovieById(Integer movie_id) throws IOException {
+    public BackgroundLogosPosters findAllImagesForMovieById(Integer movie_id) throws IOException {
         StringBuilder jsonReq = getStringFromRequest("movie/"+movie_id.toString()+"/images?api_key=");
-        System.out.println(mapper.readTree(jsonReq.toString()).get("backdrops").toString());
-        Image[] response  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("backdrops").toString(),Image[].class);
-        return Arrays.asList(response);
+
+        System.out.println(jsonReq.toString());
+
+        Image[] responseBackdrops  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("backdrops").toString(),Image[].class);
+        Image[] responsePosters  = mapper.readValue(mapper.readTree(jsonReq.toString()).get("posters").toString(),Image[].class);
+
+        BackgroundLogosPosters response = new BackgroundLogosPosters();
+        response.setBackground(Arrays.asList(responseBackdrops));
+        response.setBackground(Arrays.asList(responsePosters));
+        return response;
     }
     public List<Keywords> findAllKeywordsForMovieById(Integer movie_id) throws IOException {
         StringBuilder jsonReq = getStringFromRequest("movie/"+movie_id.toString()+"/keywords?api_key=");
